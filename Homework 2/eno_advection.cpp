@@ -44,26 +44,6 @@ void ENO_Advection::Central_Advection(double dt)
         double vx = (* velocityx)(x,y);
         double vy = (* velocityy)(x,y);
 
-//        if ( vx > 0.0 && vy > 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( ((vx) * ( grid.dx_backward(ans_vec, n) + (grid.sec_dx(ans_vec, n)*dx) )) +
-//                                                                         ((vy) * ( grid.dy_backward(ans_vec, n) + (grid.sec_dy(ans_vec, n)*dy) )) ); }
-//        else if ( vx < 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( vx * ( grid.dx_forward(ans_vec, n) + (grid.sec_dx(ans_vec, n)*dx) ) +
-//                                                                              vy * ( grid.dy_forward(ans_vec, n) + (grid.sec_dy(ans_vec, n)*dy) ));}
-//        else if ( vx < 0.0 && vy > 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( vx * ( grid.dx_forward(ans_vec, n) + (grid.sec_dx(ans_vec, n)*dx) ) +
-//                                                                              vy * ( grid.dy_backward(ans_vec, n) + (grid.sec_dy(ans_vec, n)*dy) )); }
-//        else if ( vx > 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( vx * ( grid.dx_backward(ans_vec, n) + (grid.sec_dx(ans_vec, n)*dx) ) +
-//                                                                              vy * ( grid.dy_forward(ans_vec, n) + (grid.sec_dy(ans_vec, n)*dy) )); }
-//        else {ans_vec[n] = ans_vec[n];}
-
-//        if ( vx > 0.0 && vy > 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( ((vx) * ( grid.dx_backward(ans_vec, n) + (grid.sec_dx(ans_vec, n)*dx) )) +
-//                                                                         ((vy) * ( grid.dy_backward(ans_vec, n) + (grid.sec_dy(ans_vec, n)*dy) )) ); }
-//        else if ( vx < 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( vx * ( grid.dx_forward(ans_vec, n) + (grid.sec_dx(ans_vec, n)*dx) ) +
-//                                                                              vy * ( grid.dy_forward(ans_vec, n) + (grid.sec_dy(ans_vec, n)*dy) ));}
-//        else if ( vx < 0.0 && vy > 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( vx * ( grid.dx_forward(ans_vec, n) + (grid.sec_dx(ans_vec, n)*dx) ) +
-//                                                                              vy * ( grid.dy_backward(ans_vec, n) + (grid.sec_dy(ans_vec, n)*dy) )); }
-//        else if ( vx > 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( vx * ( grid.dx_backward(ans_vec, n) + (grid.sec_dx(ans_vec, n)*dx) ) +
-//                                                                              vy * ( grid.dy_forward(ans_vec, n) + (grid.sec_dy(ans_vec, n)*dy) )); }
-//        else {ans_vec[n] = ans_vec[n];}
-
         if ( vx >= 0.0 && vy >= 0.0 ) { ans_vec[n] = ans_vec[n] - dt*( (vx * ( grid.dx_backward(ans_vec, n) + ( grid.sec_dx(ans_vec,n) )*0.5*dx))  +
                                                                             (vy * ( grid.dy_backward(ans_vec, n) + (( grid.sec_dy(ans_vec,n) )*0.5*dy))) ) ; }
         else if ( vx < 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] - dt*( (vx * ( grid.dx_forward(ans_vec, n) + (( grid.sec_dx(ans_vec,n) )*0.5*dx)))  +
@@ -72,8 +52,6 @@ void ENO_Advection::Central_Advection(double dt)
                                                                                  (vy * ( grid.dy_backward(ans_vec, n) + ( grid.sec_dy(ans_vec,n) )*0.5*dy))) ; }
         else if ( vx >= 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] - dt*( (vx * ( grid.dx_backward(ans_vec, n) + (( grid.sec_dx(ans_vec,n) )*0.5*dx)))  +
                                                                                  (vy * ( grid.dy_forward(ans_vec, n) + (( grid.sec_dy(ans_vec,n) )*0.5*dy))) ); }
-
-
     }
 }
 
@@ -92,27 +70,7 @@ void ENO_Advection::one_Step(double dt)
 
         double vx = velocityx->operator ()(x,y);
         double vy = velocityy->operator ()(x,y);
-        //double vx = (* velocityx)(x,y);
-        //double vy = (* velocityy)(x,y);
 
-
-//        if ( vx > 0.0 ) {
-//            dx_ = grid.dx_backward(ans_vec, n);
-//            mm_x_ = minmod(grid.sec_dx(ans_vec, n), grid.sec_dx(ans_vec, n-1));
-//            dy_ = grid.dx_
-//        }
-
-//        if ( vx > 0.0 && vy > 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( (vx * ( grid.dx_backward(ans_vec, n) + ( minmod( grid.sec_dx(ans_vec,n), grid.sec_dx(ans_vec,n-1) ) )*0.5*dx))  +
-//                                                                            (vy * ( grid.dy_backward(ans_vec, n) + ( minmod( grid.sec_dy(ans_vec,n), grid.sec_dy(ans_vec,n-1) ) )*0.5*dy)) ); }
-//        else if ( vx < 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( (vx * ( grid.dx_forward(ans_vec, n) + ( minmod( grid.sec_dx(ans_vec,n+1), grid.sec_dx(ans_vec,n) ) )*0.5*dx))  +
-//                                                                                 (vy * ( grid.dy_forward(ans_vec, n) + ( minmod( grid.sec_dy(ans_vec,n+1), grid.sec_dy(ans_vec,n) ) )*0.5*dy)) ); }
-//        else if ( vx < 0.0 && vy > 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( (vx * ( grid.dx_forward(ans_vec, n) + ( minmod( grid.sec_dx(ans_vec,n+1), grid.sec_dx(ans_vec,n) ) )*0.5*dx))  +
-//                                                                                 (vy * ( grid.dy_backward(ans_vec, n) + ( minmod( grid.sec_dy(ans_vec,n), grid.sec_dy(ans_vec,n-1) ) )*0.5*dy)) ); }
-//        else if ( vx > 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] + dt*(-1.0)*( (vx * ( grid.dx_backward(ans_vec, n) + ( minmod( grid.sec_dx(ans_vec,n), grid.sec_dx(ans_vec,n-1) ) )*0.5*dx))  +
-//                                                                                 (vy * ( grid.dy_forward(ans_vec, n) + ( minmod( grid.sec_dy(ans_vec,n+1), grid.sec_dy(ans_vec,n) ) )*0.5*dy)) ); }
-//        else {ans_vec[n] = ans_vec[n];}
-
-//        std::cout<<n <<std::endl;
         if ( vx >= 0.0 && vy >= 0.0 ) { ans_vec[n] = ans_vec[n] - dt*( (vx * ( grid.dx_backward(ans_vec, n) + (( minmod( grid.sec_dx(ans_vec,n), grid.sec_dx(ans_vec,n-1) ) )*0.5*dx)))  +
                                                                             (vy * ( grid.dy_backward(ans_vec, n) + (( minmod( grid.sec_dy(ans_vec,n), grid.sec_dy(ans_vec,n-N) ) )*0.5*dy))) ); }
         else if ( vx < 0.0 && vy < 0.0 ) { ans_vec[n] = ans_vec[n] - dt*( (vx * ( grid.dx_forward(ans_vec, n) + (( minmod( grid.sec_dx(ans_vec,n+1), grid.sec_dx(ans_vec,n) ) )*0.5*dx)))  +

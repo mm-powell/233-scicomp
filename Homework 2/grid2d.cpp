@@ -165,7 +165,6 @@ double Grid2D::dy_backward(std::vector<double> &function,int n)
 // Number 6
 double Grid2D::sec_dx(std::vector<double> &function,int n) //use first order derivative to approx second order derivative
 {
-    // throw an exception
     if ( int(function.size()) != (N*M) )
     {
         std::cout<<"Error!"<<std::endl; return 1.;
@@ -181,10 +180,7 @@ double Grid2D::sec_dx(std::vector<double> &function,int n) //use first order der
          return 0.;
         //return ((function[n] - (2.0*function[n-1]) + function[n-2])/(dx*dx));
     }
-    //else {return ((function[n+1] - (2*function[n]) + function[n-1])/(dx*dx));}
-//    else if ( x_from_n(n) == xmin ) { return 0.; }
-//    else if ( x_from_n(n) == xmax ) { return 0.; }
-    //
+
     else {return ((function[n+1] - (2.0*function[n]) + function[n-1])/(dx*dx));}
 }
 
@@ -194,8 +190,6 @@ double Grid2D::sec_dy(std::vector<double> &function,int n)
     {
         std::cout<<"Error!"<<std::endl; return 1.;
     }
-//    else if ( y_from_n(n) == ymin ) { return ((function[n] - 2*function[n+1] + function[n+2])/(dy*dy)); }
-//    else if ( y_from_n(n) == ymax ) { return ((function[n-2] - 2*function[n-1] + function[n])/(dy*dy)); }
 
     if ( y_from_n(n) == ymin )
     {
@@ -208,15 +202,9 @@ double Grid2D::sec_dy(std::vector<double> &function,int n)
         return 0.;
         //return ((function[n-(2*N)] - (2.0*function[n-N]) + function[n])/(dy*dy));
     }
-
-//    else if ( y_from_n(n) == ymin ) { return 0.; }
-//    else if ( y_from_n(n) == ymax ) { return 0.; }
     //else {return ((function[n+1] - (2*function[n]) + function[n-1])/(dy*dy));}
 
     else {
-
-//        std::cout<<n+N << std::endl;
-
         return ((function[n+N] - (2.0*function[n]) + function[n-N])/(dy*dy));
     }
 }

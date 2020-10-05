@@ -20,10 +20,6 @@ public:
     void Central_Advection(double dt);
     void firstord(double dt);
     std::vector<double> get_sol();
-    //ENO_Advection(double xmin, double xmax, double ymin, double ymax, double N);
-    //std::vector<double> ans_vec;
-    //double * x_direc;
-    //double * y_direc;
 };
 
 #endif // ENO_ADVECTION_H
